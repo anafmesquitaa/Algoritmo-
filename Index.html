@@ -3,182 +3,84 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Cálculo da Média - Disciplina</title>
+  <title>Cálculo da Média - Disciplina (Corrigido)</title>
   <style>
-    :root{
-      --bg:#f6f7fb;
-      --card:#ffffff;
-      --accent:#3b82f6;
-      --muted:#6b7280;
-      --success:#10b981;
-      --danger:#ef4444;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    body{
-      margin:0;
-      background:linear-gradient(180deg,#f8fafc 0%,var(--bg) 100%);
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-      color:#0f172a;
-    }
-    .card{
-      background:var(--card);
-      border-radius:12px;
-      box-shadow:0 6px 24px rgba(15,23,42,0.08);
-      width:100%;
-      max-width:520px;
-      padding:22px;
-    }
-    h1{
-      margin:0 0 8px 0;
-      font-size:20px;
-      letter-spacing: -0.2px;
-    }
-    p.lead{
-      margin:0 0 16px 0;
-      color:var(--muted);
-      font-size:14px;
-    }
-    form {
-      display:grid;
-      gap:12px;
-      margin-top:8px;
-    }
-    label{
-      font-size:13px;
-      color:#111827;
-      display:block;
-      margin-bottom:6px;
-    }
-    .row{
-      display:flex;
-      gap:12px;
-    }
-    input[type="number"]{
-      flex:1;
-      padding:10px 12px;
-      border:1px solid #e6e9ef;
-      border-radius:8px;
-      font-size:15px;
-      outline:none;
-    }
-    input[type="number"]:focus{
-      box-shadow:0 0 0 4px rgba(59,130,246,0.08);
-      border-color:var(--accent);
-    }
-    .actions{
-      display:flex;
-      gap:10px;
-      justify-content:flex-end;
-      margin-top:6px;
-    }
-    button{
-      padding:10px 14px;
-      border-radius:10px;
-      border:0;
-      font-weight:600;
-      cursor:pointer;
-    }
-    .btn-primary{
-      background:var(--accent);
-      color:white;
-    }
-    .btn-secondary{
-      background:#eef2ff;
-      color:var(--accent);
-      font-weight:600;
-    }
-    .result{
-      margin-top:14px;
-      padding:12px;
-      border-radius:10px;
-      background:#f8fafc;
-      border:1px dashed #e6eefc;
-      font-weight:600;
-      color:#0f172a;
-    }
-    .error{
-      color:var(--danger);
-      font-size:13px;
-      margin-top:6px;
-    }
-    small{
-      color:var(--muted);
-      display:block;
-      margin-top:4px;
-    }
-    @media (max-width:420px){
-      .row{flex-direction:column;}
-      .actions{justify-content:stretch;flex-direction:column-reverse;}
-    }
+    body{font-family: Arial, sans-serif;padding:24px;background:#f6f7fb;}
+    .card{background:#fff;padding:18px;border-radius:10px;max-width:480px;margin:0 auto;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    input{width:100%;padding:10px;margin-top:6px;border-radius:6px;border:1px solid #ddd;font-size:15px}
+    .actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+    button{padding:10px 14px;border-radius:8px;border:0;cursor:pointer}
+    .primary{background:#2563eb;color:#fff}
+    .secondary{background:#eef2ff;color:#2563eb}
+    .result{margin-top:12px;padding:10px;border-radius:8px;background:#f8fafc;border:1px solid #e6eefc;font-weight:600}
+    .error{color:#ef4444;margin-top:8px}
+    small{color:#6b7280}
   </style>
 </head>
 <body>
   <main class="card" role="main">
-    <h1>Cálculo da Média</h1>
-    <p class="lead">Digite as duas notas do aluno e clique em <strong>Calcular</strong>. A média será exibida com uma casa decimal.</p>
+    <h2>Cálculo da Média</h2>
+    <p><small>Digite as duas notas (0 a 10). Use ponto ou vírgula como separador decimal.</small></p>
 
-    <form id="mediaForm" novalidate>
-      <div>
-        <label for="nota1">Nota 1</label>
-        <input id="nota1" name="nota1" type="number" step="0.1" min="0" max="10" inputmode="decimal" placeholder="Ex.: 4.5" required aria-required="true">
-      </div>
+    <label for="nota1">Nota 1</label>
+    <input id="nota1" type="text" placeholder="Ex.: 4.5 ou 4,5">
 
-      <div>
-        <label for="nota2">Nota 2</label>
-        <input id="nota2" name="nota2" type="number" step="0.1" min="0" max="10" inputmode="decimal" placeholder="Ex.: 8.5" required aria-required="true">
-      </div>
+    <label for="nota2" style="margin-top:8px">Nota 2</label>
+    <input id="nota2" type="text" placeholder="Ex.: 8.5 ou 8,5">
 
-      <div class="actions" aria-hidden="false">
-        <button type="button" class="btn-secondary" id="limparBtn">Limpar</button>
-        <button type="submit" class="btn-primary" id="calcularBtn">Calcular</button>
-      </div>
+    <div class="actions">
+      <button id="limparBtn" class="secondary" type="button">Limpar</button>
+      <button id="calcularBtn" class="primary" type="button">Calcular</button>
+    </div>
 
-      <div id="mensagem" role="status" aria-live="polite"></div>
-    </form>
-
-    <div id="resultado" class="result" style="display:none;" aria-hidden="true"></div>
+    <div id="mensagem"></div>
+    <div id="resultado" class="result" style="display:none"></div>
   </main>
 
   <script>
     (function(){
-      const form = document.getElementById('mediaForm');
       const nota1El = document.getElementById('nota1');
       const nota2El = document.getElementById('nota2');
+      const calcularBtn = document.getElementById('calcularBtn');
+      const limparBtn = document.getElementById('limparBtn');
       const resultadoEl = document.getElementById('resultado');
       const mensagemEl = document.getElementById('mensagem');
-      const limparBtn = document.getElementById('limparBtn');
 
       function showError(text){
         mensagemEl.innerHTML = '<div class="error">' + text + '</div>';
         resultadoEl.style.display = 'none';
-        resultadoEl.setAttribute('aria-hidden','true');
       }
 
       function clearMessages(){
         mensagemEl.innerHTML = '';
+        resultadoEl.style.display = 'none';
       }
 
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
+      function parseNumero(text){
+        if(typeof text !== 'string') return NaN;
+        const t = text.trim().replace(',', '.');
+        return parseFloat(t);
+      }
+
+      function calcularMedia(){
         clearMessages();
+        const raw1 = nota1El.value;
+        const raw2 = nota2El.value;
 
-        const raw1 = nota1El.value.trim();
-        const raw2 = nota2El.value.trim();
+        console.log('Entradas:', raw1, raw2); // debug
 
-        if(raw1 === '' || raw2 === ''){
-          showError('Por favor, preencha ambas as notas.');
+        if(!raw1 || !raw2){
+          showError('Preencha ambas as notas.');
           return;
         }
 
-        const n1 = Number(raw1.replace(',', '.'));
-        const n2 = Number(raw2.replace(',', '.'));
+        const n1 = parseNumero(raw1);
+        const n2 = parseNumero(raw2);
+
+        console.log('Convertidos:', n1, n2); // debug
 
         if(Number.isNaN(n1) || Number.isNaN(n2)){
-          showError('Insira valores numéricos válidos (ex.: 4.5).');
+          showError('Valores inválidos. Use números (ex.: 4.5 ou 4,5).');
           return;
         }
 
@@ -188,7 +90,32 @@
         }
 
         const media = (n1 + n2) / 2;
-        // Formata com 1 casa decimal (ex.: 6.5)
         const mediaFormatada = media.toFixed(1).replace('.', ',');
 
-        resultadoEl.innerHTML = `A média entre ${n
+        resultadoEl.innerHTML = `A média entre ${String(n1).replace('.',',')} e ${String(n2).replace('.',',')} é <strong>${mediaFormatada}</strong>.`;
+        resultadoEl.style.display = 'block';
+        console.log('Média calculada:', media);
+      }
+
+      calcularBtn.addEventListener('click', calcularMedia);
+
+      limparBtn.addEventListener('click', function(){
+        nota1El.value = '';
+        nota2El.value = '';
+        clearMessages();
+        nota1El.focus();
+      });
+
+      // Permitir Enter para calcular em qualquer campo
+      [nota1El, nota2El].forEach(el => {
+        el.addEventListener('keydown', function(e){
+          if(e.key === 'Enter') {
+            e.preventDefault();
+            calcularMedia();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
